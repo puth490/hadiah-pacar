@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Hadiah</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #fce4ec;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e91e63;
+        }
+        .sweet-message {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, textarea {
+            padding: 10px;
+            margin: 10px 0;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hai, Sayang!</h1>
+    <p>Scan barcode ini dan mainkan game kecil untuk mendapatkan pesan sweet dari aku!</p>
+
+    <!-- Game Section -->
+    <div id="game-section">
+        <h2>Tebak Kata</h2>
+        <p>Petunjuk: Aku adalah hal yang paling kamu suka makan pas lagi capek.</p>
+        <input type="text" id="answer" placeholder="Jawaban kamu di sini...">
+        <button onclick="checkAnswer()">Kirim Jawaban</button>
+        <p id="game-result" class="hidden"></p>
+    </div>
+
+    <!-- Sweet Message Section -->
+    <div id="sweet-section" class="hidden">
+        <div class="sweet-message">
+            <h2>Kamu Keren Banget! 🎉</h2>
+            <p>Selamat ya udah main game ini! Tapi lebih dari itu, aku mau bilang terima kasih karena kamu sudah bekerja keras hari ini. Kamu bikin aku bangga! ❤️</p>
+        </div>
+        <button onclick="showForm()">Lanjut ke Form Hadiah</button>
+    </div>
+
+    <!-- Form Section -->
+    <div id="form-section" class="hidden">
+        <h2>Permintaan Hadiah</h2>
+        <form id="gift-form">
+            <label for="gift">Apa hadiah yang kamu mau?</label>
+            <input type="text" id="gift" placeholder="Tulis hadiahnya di sini..." required>
+            <label for="reason">Kenapa kamu mau hadiah ini? (opsional)</label>
+            <textarea id="reason" rows="4" placeholder="Tulis alasannya di sini..."></textarea>
+            <button type="button" onclick="submitForm()">Kirim Permintaan</button>
+        </form>
+        <p id="form-result" class="hidden"></p>
+    </div>
+
+    <script>
+        function checkAnswer() {
+            const answer = document.getElementById('answer').value.toLowerCase();
+            const result = document.getElementById('game-result');
+
+            if (answer === 'es krim') {
+                result.textContent = "Benar! Kamu suka banget makan es krim!";
+                result.classList.remove('hidden');
+                document.getElementById('game-section').classList.add('hidden');
+                document.getElementById('sweet-section').classList.remove('hidden');
+            } else {
+                result.textContent = "Jawaban salah. Coba lagi!";
+                result.classList.remove('hidden');
+            }
+        }
+
+        function showForm() {
+            document.getElementById('sweet-section').classList.add('hidden');
+            document.getElementById('form-section').classList.remove('hidden');
+        }
+
+        function submitForm() {
+            const gift = document.getElementById('gift').value;
+            const reason = document.getElementById('reason').value;
+            const result = document.getElementById('form-result');
+
+            if (gift) {
+                result.textContent = `Permintaanmu "${gift}" sudah terkirim! Aku akan usahakan ya, sayang! ❤️`;
+                result.classList.remove('hidden');
+                document.getElementById('gift-form').reset();
+            } else {
+                result.textContent = "Tolong isi apa hadiah yang kamu mau dulu, ya!";
+                result.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
