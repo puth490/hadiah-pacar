@@ -45,8 +45,24 @@
     <h1>Hai, Sayang!</h1>
     <p>Scan barcode ini dan mainkan game kecil untuk mendapatkan pesan sweet dari aku!</p>
 
+    <!-- Game Tebak Kata -->
+    <div id="game-section">
+        <h2>Tebak Kata</h2>
+        <p>Petunjuk: Aku adalah hal yang paling kamu suka makan pas lagi capek.</p>
+        <input type="text" id="guess" placeholder="Tebak di sini...">
+        <button onclick="checkAnswer()">Kirim Jawaban</button>
+        <p id="game-result"></p>
+    </div>
+
+    <!-- Kalimat Sweet -->
+    <div id="sweet-message" class="hidden">
+        <h2>Kamu Keren Banget! 🎉</h2>
+        <p>Sayang, aku bangga banget sama kamu. Kamu udah kerja keras banget hari ini, dan aku tahu betapa hebatnya kamu. Kamu emang luar biasa! ❤️</p>
+        <button onclick="showForm()">Lanjut ke Form Hadiah</button>
+    </div>
+
     <!-- Form Section -->
-    <div id="form-section">
+    <div id="form-section" class="hidden">
         <h2>Permintaan Hadiah</h2>
         <form id="gift-form" onsubmit="showConfirmation(event)">
             <label for="gift">Apa hadiah yang kamu mau?</label><br>
@@ -58,15 +74,33 @@
     </div>
 
     <script>
+        const correctAnswer = "es krim"; // Jawaban benar
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('guess').value.toLowerCase();
+            const result = document.getElementById('game-result');
+            
+            if (userAnswer === correctAnswer) {
+                result.textContent = ""; // Kosongkan pesan sebelumnya
+                document.getElementById('game-section').classList.add('hidden');
+                document.getElementById('sweet-message').classList.remove('hidden');
+            } else {
+                result.textContent = "Jawaban salah. Coba lagi!";
+                result.style.color = "red";
+            }
+        }
+
+        function showForm() {
+            document.getElementById('sweet-message').classList.add('hidden');
+            document.getElementById('form-section').classList.remove('hidden');
+        }
+
         function showConfirmation(event) {
-            event.preventDefault(); // Mencegah form refresh halaman
+            event.preventDefault();
             const hadiah = document.getElementById('gift').value;
             const alasan = document.getElementById('reason').value;
 
-            // Tampilkan jawaban di popup
             alert(`Permintaan terkirim! 🎉\n\nHadiah: ${hadiah}\nAlasan: ${alasan || 'Tidak ada alasan diberikan.'}`);
-
-            // Kosongkan form setelah submit
             document.getElementById('gift-form').reset();
         }
     </script>
